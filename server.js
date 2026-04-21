@@ -1,4 +1,3 @@
-// server.js
 const db = mysql.createConnection({
     host: process.env.TIDB_HOST,
     port: process.env.TIDB_PORT,
@@ -7,6 +6,6 @@ const db = mysql.createConnection({
     database: process.env.TIDB_DATABASE,
     ssl: {
         minVersion: 'TLSv1.2',
-        rejectUnauthorized: true // TiDB Cloud requires SSL
+        rejectUnauthorized: true
     }
 });
