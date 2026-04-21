@@ -1,11 +1,10 @@
-require('dotenv').config(); // Load variables from .env
-
+// server.js
 const db = mysql.createConnection({
-    host: gateway01.ap - southeast - 1.prod.aws.tidbcloud.com,
-    port: 4000,
-    user: 16XjgHDMWzEekU6.root,
-    password: n9uZKletiUngtnr,
-    database: 'cyberalert',
+    host: process.env.TIDB_HOST,
+    port: process.env.TIDB_PORT,
+    user: process.env.TIDB_USER,
+    password: process.env.TIDB_PASSWORD,
+    database: process.env.TIDB_DATABASE,
     ssl: {
         minVersion: 'TLSv1.2',
         rejectUnauthorized: true // TiDB Cloud requires SSL
