@@ -22,8 +22,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Finally, listen on the port
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+// Change this section in your server.js
+const PORT = process.env.PORT || 8080; 
+
+// IMPORTANT: Bind to 0.0.0.0, not localhost
+app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on port ${PORT}`);
 });
