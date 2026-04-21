@@ -15,3 +15,14 @@ const db = mysql.createConnection({
         rejectUnauthorized: true
     }
 });
+
+// Add this route to your server.js
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Ensure your server is listening on the correct port
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
