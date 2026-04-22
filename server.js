@@ -7,7 +7,7 @@ const cors = require('cors');
 
 const app = express();
 
-// Middleware to parse JSON and enable CORS
+// Middleware
 app.use(express.json());
 app.use(cors());
 
@@ -34,9 +34,8 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'login.html'));
 });
 
-// Update this route in your server.js
+// API Route for registration
 app.post('/api/register', (req, res) => {
-    // These keys now match the 'data' object in your login.html
     const { name, email, officer_id, password } = req.body;
 
     if (!name || !email || !password) {
@@ -46,13 +45,15 @@ app.post('/api/register', (req, res) => {
     bcrypt.hash(password, 10, (err, hash) => {
         if (err) return res.status(500).json({ error: 'Error hashing password' });
 
-        // Ensure your database table 'users' has columns matching these fields
-        const sql = "INSERT INTO users (name, email, officer_id, password) VALUES (?, ?, ?, ?)";
+        // Corrected SQL: password_hash matches your table schema
+        const sql = "INSERT INTO users (name, email, officer_id, password_hash) VALUES (?, ?, ?, ?)";
+        
         db.query(sql, [name, email, officer_id, hash], (err, result) => {
             if (err) {
-                console.error(err);
+                console.error("Database error:", err);
                 return res.status(500).json({ error: 'Database error' });
             }
+            // Response must be INSIDE this callback to ensure DB success
             res.status(200).json({ message: 'User registered successfully!' });
         });
     });
@@ -61,6 +62,7 @@ app.post('/api/register', (req, res) => {
 // Port configuration
 const PORT = process.env.PORT || 8080;
 
+// IMPORTANT: Bind to 0.0.0.0 to ensure accessibility
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on port ${PORT}`);
 });
