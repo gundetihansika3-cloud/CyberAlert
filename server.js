@@ -58,6 +58,31 @@ app.post('/api/register', (req, res) => {
         });
     });
 });
+// API Route for login
+app.post('/api/login', (req, res) => {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ error: 'Email and password are required' });
+    }
+
+    const sql = "SELECT * FROM users WHERE email = ?";
+    db.query(sql, [email], (err, results) => {
+        if (err) return res.status(500).json({ error: 'Database error' });
+        if (results.length === 0) return res.status(401).json({ error: 'Invalid email or password' });
+
+        const user = results[0];
+        bcrypt.compare(password, user.password_hash, (err, isMatch) => {
+            if (err || !isMatch) return res.status(401).json({ error: 'Invalid email or password' });
+
+            // Success: Send back user info (excluding password hash)
+            res.status(200).json({
+                message: 'Login successful!',
+                user: { name: user.name, email: user.email }
+            });
+        });
+    });
+});
 
 // Port configuration
 const PORT = process.env.PORT || 8080;
