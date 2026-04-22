@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#0F172A">
     <title>CyberAlert | Online Fraud Reporting System</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -18,9 +19,21 @@
         <div class="blob blob-3"></div>
     </div>
 
+    <!-- Mobile Menu Toggle Button -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <div class="app-container glass-panel">
         <!-- Sidebar Navigation -->
-        <nav class="sidebar">
+        <nav class="sidebar" id="sidebar">
+            <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">
+                <i class="fas fa-times"></i>
+            </button>
+
             <div class="logo-container">
                 <i class="fas fa-shield-halved logo-icon"></i>
                 <div class="logo-text">
@@ -126,49 +139,33 @@
 
                     <!-- Central Intelligence Hub Features -->
                     <div class="mt-20 mb-20">
-                        <h3
-                            style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 15px;">
-                            <i class="fas fa-shield-halved text-primary"></i> CyberAlert Intelligence Core</h3>
-                        <div
-                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px;">
+                        <h3 class="section-header">
+                            <i class="fas fa-shield-halved text-primary"></i> CyberAlert Intelligence Core
+                        </h3>
+                        <div class="intelligence-grid">
 
                             <!-- 1. Data Analysis -->
-                            <div class="glass-card hoverable"
-                                onclick="document.querySelector('[data-target=database]').click()"
-                                style="background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), transparent); border-left: 3px solid var(--primary);">
+                            <div class="glass-card hoverable intel-card intel-primary"
+                                onclick="document.querySelector('[data-target=database]').click()">
                                 <div class="flex-between mb-10">
                                     <h4 style="color: var(--primary-light);"><i class="fas fa-chart-line"></i> Data
                                         Analysis</h4>
-                                    <span class="badge"
-                                        style="position: static; padding: 3px 8px; font-size: 0.7rem; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);">Live
-                                        Feed</span>
+                                    <span class="pill-badge">Live Feed</span>
                                 </div>
                                 <p class="text-sm text-dim mb-10">Aggregating national cybercrime data to identify
                                     emerging financial fraud syndicates.</p>
-                                <div
-                                    style="height: 60px; display: flex; align-items: flex-end; gap: 5px; opacity: 0.7;">
-                                    <div
-                                        style="flex: 1; background: var(--primary); height: 40%; border-radius: 3px 3px 0 0;">
-                                    </div>
-                                    <div
-                                        style="flex: 1; background: var(--primary); height: 60%; border-radius: 3px 3px 0 0;">
-                                    </div>
-                                    <div
-                                        style="flex: 1; background: var(--accent); height: 90%; border-radius: 3px 3px 0 0;">
-                                    </div>
-                                    <div
-                                        style="flex: 1; background: var(--primary); height: 50%; border-radius: 3px 3px 0 0;">
-                                    </div>
-                                    <div
-                                        style="flex: 1; background: var(--primary); height: 75%; border-radius: 3px 3px 0 0;">
-                                    </div>
+                                <div class="mini-chart">
+                                    <div style="background: var(--primary); height: 40%;"></div>
+                                    <div style="background: var(--primary); height: 60%;"></div>
+                                    <div style="background: var(--accent); height: 90%;"></div>
+                                    <div style="background: var(--primary); height: 50%;"></div>
+                                    <div style="background: var(--primary); height: 75%;"></div>
                                 </div>
                             </div>
 
                             <!-- 2. Fraud Identification -->
-                            <div class="glass-card hoverable"
-                                onclick="document.querySelector('[data-target=features]').click()"
-                                style="background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), transparent); border-left: 3px solid var(--secondary);">
+                            <div class="glass-card hoverable intel-card intel-secondary"
+                                onclick="document.querySelector('[data-target=features]').click()">
                                 <div class="flex-between mb-10">
                                     <h4 style="color: var(--secondary-light);"><i class="fas fa-search"></i> Fraud
                                         Identification</h4>
@@ -177,24 +174,19 @@
                                 <p class="text-sm border-bottom pb-10 mb-10"
                                     style="border-color: rgba(255,255,255,0.05);"><strong class="text-warning">86%
                                         match:</strong> "Advance Fee Scams" detected across 3 recent reports.</p>
-                                <button class="btn-secondary w-full"
-                                    style="padding: 5px; font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center;">
+                                <button class="btn-secondary w-full scan-btn">
                                     <span>Run Heuristic Scan</span> <i class="fas fa-arrow-right"></i>
                                 </button>
                             </div>
 
                             <!-- 3. Reports & Alerts -->
-                            <div class="glass-card hoverable"
-                                onclick="document.querySelector('[data-target=investigation]').click()"
-                                style="background: linear-gradient(135deg, rgba(244, 63, 94, 0.1), transparent); border-left: 3px solid var(--accent);">
+                            <div class="glass-card hoverable intel-card intel-accent"
+                                onclick="document.querySelector('[data-target=investigation]').click()">
                                 <div class="flex-between mb-10">
                                     <h4 style="color: var(--accent);"><i class="fas fa-bell"></i> Reports & Alerts</h4>
-                                    <span class="badge"
-                                        style="position: static; padding: 3px 8px; font-size: 0.7rem; background: rgba(244, 63, 94, 0.2); color: var(--accent);">2
-                                        Critical</span>
+                                    <span class="pill-badge pill-danger">2 Critical</span>
                                 </div>
-                                <ul style="list-style: none; padding: 0; margin: 0; font-size: 0.8rem;"
-                                    class="text-dim">
+                                <ul class="alert-list">
                                     <li class="mb-10"><i class="fas fa-circle text-accent"
                                             style="font-size: 0.5rem; margin-right: 5px;"></i> Priority: Mass Phishing
                                         Campaign detected targeting SBI users.</li>
@@ -205,16 +197,14 @@
                             </div>
 
                             <!-- 4. Fraud Prevention Tips -->
-                            <div class="glass-card hoverable"
-                                onclick="document.querySelector('[data-target=support]').click()"
-                                style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), transparent); border-left: 3px solid var(--success);">
+                            <div class="glass-card hoverable intel-card intel-success"
+                                onclick="document.querySelector('[data-target=support]').click()">
                                 <div class="flex-between mb-10">
                                     <h4 style="color: var(--success);"><i class="fas fa-lightbulb"></i> Fraud Prevention
                                         Tips</h4>
                                     <i class="fas fa-book-reader text-dim"></i>
                                 </div>
-                                <div
-                                    style="background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; border: 1px dashed rgba(16, 185, 129, 0.3);">
+                                <div class="tip-box">
                                     <strong class="text-sm" style="color: white;">Tip of the Day:</strong>
                                     <p class="text-sm text-dim mt-5">Never share your OTP, PIN, or CVV. Legitimate bank
                                         staff or law enforcement will never ask for them over a call.</p>
@@ -322,7 +312,7 @@
                 <!-- View: Database Module -->
                 <section id="database" class="view-section hidden">
                     <div class="glass-card full-width">
-                        <div class="flex-between">
+                        <div class="flex-between database-header">
                             <h3><i class="fas fa-database"></i> Fraud Database & Patterns</h3>
                             <div class="search-bar">
                                 <i class="fas fa-search"></i>
@@ -343,25 +333,25 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>#RP-8821</td>
-                                        <td>Oct 24, 2023</td>
-                                        <td>Phishing Link</td>
-                                        <td><span class="badge warning">Analyzing</span></td>
-                                        <td>High</td>
+                                        <td data-label="ID">#RP-8821</td>
+                                        <td data-label="Date">Oct 24, 2023</td>
+                                        <td data-label="Type">Phishing Link</td>
+                                        <td data-label="Status"><span class="badge warning">Analyzing</span></td>
+                                        <td data-label="Risk">High</td>
                                     </tr>
                                     <tr>
-                                        <td>#RP-8820</td>
-                                        <td>Oct 23, 2023</td>
-                                        <td>Fake Job Offer</td>
-                                        <td><span class="badge success">Blacklisted</span></td>
-                                        <td>Critical</td>
+                                        <td data-label="ID">#RP-8820</td>
+                                        <td data-label="Date">Oct 23, 2023</td>
+                                        <td data-label="Type">Fake Job Offer</td>
+                                        <td data-label="Status"><span class="badge success">Blacklisted</span></td>
+                                        <td data-label="Risk">Critical</td>
                                     </tr>
                                     <tr>
-                                        <td>#RP-8819</td>
-                                        <td>Oct 22, 2023</td>
-                                        <td>UPI Fraud</td>
-                                        <td><span class="badge info">Investigating</span></td>
-                                        <td>High</td>
+                                        <td data-label="ID">#RP-8819</td>
+                                        <td data-label="Date">Oct 22, 2023</td>
+                                        <td data-label="Type">UPI Fraud</td>
+                                        <td data-label="Status"><span class="badge info">Investigating</span></td>
+                                        <td data-label="Risk">High</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -427,10 +417,10 @@
                                 <i class="fas fa-info-circle"></i> This section is restricted to verified nodal officers
                                 and law enforcement agents.
                             </div>
-                            <div class="mt-20">
+                            <div class="mt-20 admin-buttons">
                                 <button class="btn-primary"><i class="fas fa-file-export"></i> Export Intelligence
                                     Report</button>
-                                <button class="btn-secondary ml-10"><i class="fas fa-share-nodes"></i> Trigger
+                                <button class="btn-secondary"><i class="fas fa-share-nodes"></i> Trigger
                                     Interstate Sharing</button>
                             </div>
                         </div>
@@ -443,27 +433,24 @@
 
                         <!-- Smart Fraud Detection (AI Analyses Patterns) -->
                         <div class="glass-card full-width mb-20">
-                            <div class="flex-between">
+                            <div class="flex-between smart-header">
                                 <div>
                                     <h3><i class="fas fa-brain text-primary"></i> Smart Fraud Detection</h3>
                                     <p class="text-sm mt-10">CyberAlert AI analyzes input text, user behaviors, or
                                         transaction patterns to detect anomalies.</p>
                                 </div>
-                                <span class="badge"
-                                    style="position: static; font-size: 0.9rem; padding: 5px 10px; background: rgba(79, 70, 229, 0.2); color: var(--primary-light); border: 1px solid var(--primary-light);">AI
-                                    Model v2.4 Active</span>
+                                <span class="ai-badge">AI Model v2.4 Active</span>
                             </div>
 
                             <div class="mt-20">
-                                <textarea id="ai-input" rows="4"
-                                    style="width: 100%; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 12px; color: white; resize: vertical;"
+                                <textarea id="ai-input" rows="4" class="ai-textarea"
                                     placeholder="Paste suspicious message, email content, or transaction details here..."></textarea>
                                 <button class="btn-primary mt-10" onclick="analyzePattern()"><i class="fas fa-bolt"></i>
                                     Run AI Analysis</button>
                             </div>
 
-                            <div id="ai-result" class="mt-20"
-                                style="display:none; background: rgba(0,0,0,0.3); border-radius: 8px; padding: 15px; border-left: 4px solid var(--primary);">
+                            <div id="ai-result" class="mt-20 ai-result-box"
+                                style="display:none;">
                                 <!-- Results injected here via JS -->
                             </div>
                         </div>
@@ -472,7 +459,7 @@
                         <div class="glass-card flex-1">
                             <h3><i class="fas fa-link"></i> Suspicious Link Check</h3>
                             <p class="text-sm my-10">AI-powered URL analysis to detect phishing and scams.</p>
-                            <div class="search-bar w-full">
+                            <div class="search-bar w-full link-bar">
                                 <input type="url" id="link-input" placeholder="https://example.com/claim-prize">
                                 <button class="btn-primary" onclick="checkLink()">Scan</button>
                             </div>
@@ -491,39 +478,27 @@
                         </div>
 
                         <!-- Mobile App Promo -->
-                        <div class="glass-card full-width mt-20"
-                            style="background: linear-gradient(135deg, rgba(79, 70, 229, 0.15), rgba(6, 182, 212, 0.1)); border-left: 4px solid var(--secondary);">
-                            <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center;">
-                                <div style="flex: 1; min-width: 300px;">
+                        <div class="glass-card full-width mt-20 app-promo">
+                            <div class="app-promo-inner">
+                                <div class="app-promo-content">
                                     <h3><i class="fas fa-mobile-alt text-primary"></i> CyberAlert Mobile App</h3>
-                                    <h4 style="color: var(--text-main); font-size: 1.2rem; margin: 10px 0;">On-The-Go
-                                        Reporting</h4>
-                                    <p class="text-sm text-dim" style="line-height: 1.6;">Report fraud instantly,
+                                    <h4 class="app-promo-subtitle">On-The-Go Reporting</h4>
+                                    <p class="text-sm text-dim app-promo-desc">Report fraud instantly,
                                         capture evidence automatically from your phone, and receive real-time push
                                         notifications about active threats in your area.</p>
 
-                                    <div style="display: flex; gap: 15px; margin-top: 20px;">
-                                        <button class="btn-secondary"
-                                            style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.1);"><i
-                                                class="fab fa-apple fa-lg"></i>
-                                            <div style="text-align: left; line-height: 1;"><span
-                                                    style="font-size: 0.6rem; color: #aaa;">Download on
-                                                    the</span><br>App Store</div>
+                                    <div class="app-store-buttons">
+                                        <button class="btn-secondary store-btn"><i class="fab fa-apple fa-lg"></i>
+                                            <div class="store-btn-text"><span>Download on the</span><br>App Store</div>
                                         </button>
-                                        <button class="btn-secondary"
-                                            style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; background: rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.1);"><i
-                                                class="fab fa-google-play fa-lg" style="color: var(--success);"></i>
-                                            <div style="text-align: left; line-height: 1;"><span
-                                                    style="font-size: 0.6rem; color: #aaa;">GET IT ON</span><br>Google
-                                                Play</div>
+                                        <button class="btn-secondary store-btn"><i class="fab fa-google-play fa-lg" style="color: var(--success);"></i>
+                                            <div class="store-btn-text"><span>GET IT ON</span><br>Google Play</div>
                                         </button>
                                     </div>
                                 </div>
-                                <div
-                                    style="display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; border: 1px dashed rgba(255,255,255,0.2);">
+                                <div class="qr-wrapper">
                                     <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://cyberalert.gov.in/app&bgcolor=0F172A&color=67E8F9"
-                                        alt="QR Code"
-                                        style="border-radius: 8px; margin-bottom: 10px; border: 2px solid white;">
+                                        alt="QR Code" class="qr-code">
                                     <span class="text-sm text-dim">Scan to Download</span>
                                 </div>
                             </div>
@@ -533,13 +508,11 @@
 
                 <!-- View: Gamified Quiz View -->
                 <section id="quiz-view" class="view-section hidden">
-                    <div class="glass-card full-width"
-                        style="max-width: 800px; margin: 0 auto; min-height: 400px; display: flex; flex-direction: column;">
-                        <h3 class="mb-20" style="border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
+                    <div class="glass-card full-width quiz-container">
+                        <h3 class="mb-20 quiz-header">
                             <i class="fas fa-user-graduate text-primary"></i> CyberAwareness Training
                         </h3>
-                        <div id="quiz-content"
-                            style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                        <div id="quiz-content" class="quiz-content-wrapper">
                             <!-- Injected by JS -->
                         </div>
                     </div>
@@ -552,6 +525,45 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/app.js"></script>
+    <script>
+        // Mobile menu toggle functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebarClose = document.getElementById('sidebarClose');
+
+        function openSidebar() {
+            sidebar.classList.add('mobile-open');
+            sidebarOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSidebar() {
+            sidebar.classList.remove('mobile-open');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuToggle?.addEventListener('click', openSidebar);
+        sidebarClose?.addEventListener('click', closeSidebar);
+        sidebarOverlay?.addEventListener('click', closeSidebar);
+
+        // Close sidebar when nav item clicked on mobile
+        document.querySelectorAll('.nav-item, .tool-card').forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 900) {
+                    closeSidebar();
+                }
+            });
+        });
+
+        // Close sidebar on resize to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 900) {
+                closeSidebar();
+            }
+        });
+    </script>
 </body>
 
 </html>
