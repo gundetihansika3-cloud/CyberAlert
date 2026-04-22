@@ -1394,4 +1394,193 @@ html {
     }
 
     .feature-card h4 {
-        font-size: 1r
+        font-size: 1rem;
+    }
+
+    .helpline-card h1 {
+        font-size: 2rem;
+    }
+
+    .file-upload {
+        padding: 20px 10px;
+    }
+
+    .file-upload i {
+        font-size: 1.5rem;
+    }
+
+    .file-upload p {
+        font-size: 0.85rem;
+    }
+
+    .cyberalert-form input:not([type="checkbox"]),
+    .cyberalert-form select,
+    .cyberalert-form textarea {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .mini-chart {
+        height: 50px;
+    }
+
+    .ai-badge {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+
+    .store-btn {
+        padding: 8px 14px !important;
+    }
+
+    .store-btn-text {
+        font-size: 0.85rem;
+    }
+
+    .quiz-banner {
+        padding: 20px 12px;
+    }
+
+    .quiz-banner h4 {
+        font-size: 1rem;
+    }
+
+    .sidebar {
+        width: 260px;
+    }
+
+    .logo-container {
+        padding: 0 20px 20px;
+    }
+
+    .nav-item {
+        padding: 12px 18px;
+        margin: 4px 10px;
+        font-size: 0.9rem;
+    }
+
+    .nav-item i {
+        font-size: 1rem;
+        margin-right: 12px;
+    }
+}
+
+/* Very Small Phones (up to 380px) */
+@media (max-width: 380px) {
+    .top-header {
+        padding: 0 10px 0 58px;
+    }
+
+    .user-profile {
+        gap: 8px;
+    }
+
+    .views-container {
+        padding: 10px;
+    }
+
+    .glass-card {
+        padding: 12px;
+    }
+
+    .glass-card h3 {
+        font-size: 1rem;
+    }
+
+    .banner-content h3 {
+        font-size: 1.2rem;
+    }
+
+    .stat-card {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .btn-primary, .btn-secondary {
+        padding: 9px 14px;
+        font-size: 0.85rem;
+        width: 100%;
+    }
+
+    .app-store-buttons {
+        flex-direction: column;
+    }
+
+    .store-btn {
+        width: 100%;
+    }
+
+    .search-bar {
+        padding: 6px 10px;
+    }
+
+    .search-bar input {
+        font-size: 0.85rem;
+    }
+}
+
+/* Landscape orientation tweaks for short screens */
+@media (max-height: 500px) and (orientation: landscape) {
+    .app-container {
+        height: 100vh;
+        height: 100dvh;
+    }
+
+    .welcome-banner {
+        padding: 15px;
+    }
+
+    .banner-img {
+        height: 60px;
+    }
+
+    .top-header {
+        height: 55px;
+    }
+}
+
+/* High-DPI / Retina screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .glass-panel, .glass-card {
+        border-width: 0.5px;
+    }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .blob {
+        animation: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .sidebar, .mobile-menu-toggle, .background-blobs, .top-header {
+        display: none !important;
+    }
+
+    .app-container {
+        width: 100%;
+        height: auto;
+        box-shadow: none;
+        border: none;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+}
