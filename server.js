@@ -6,6 +6,7 @@ const path = require('path');
 const cors = require('cors');
 
 const app = express(); // <--- YOU MUST INITIALIZE APP FIRST!
+app.use(express.json()); // Allows your server to parse incoming JSON data
 
 // Database connection
 const db = mysql.createConnection({
@@ -17,11 +18,13 @@ const db = mysql.createConnection({
     ssl: { minVersion: 'TLSv1.2', rejectUnauthorized: true }
 });
 
-// Now define your route
+// Add this line to serve static files from your project root
+app.use(express.static(__dirname)); 
+
+// Now your existing routes will work
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
-
 // Change this section in your server.js
 const PORT = process.env.PORT || 8080; 
 
