@@ -116,6 +116,7 @@ body {
     border-radius: 10px;
     background: rgba(15, 23, 42, 0.9);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
     color: var(--secondary-light);
     font-size: 1.2rem;
@@ -137,16 +138,20 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    height: 100dvh;
+    background: rgba(0, 0, 0, 0.7);
+    -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
     z-index: 999;
     opacity: 0;
     transition: opacity 0.3s;
+    pointer-events: none;
 }
 
 .sidebar-overlay.active {
     opacity: 1;
     display: block;
+    pointer-events: auto;
 }
 
 .sidebar-close {
@@ -188,6 +193,7 @@ body {
 .glass-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 24px;
@@ -1068,7 +1074,14 @@ html {
         position: relative;
     }
 
-    /* Mobile sidebar */
+    /* Remove glass-panel blur from app-container on mobile so sidebar is clean */
+    .app-container.glass-panel {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: transparent;
+    }
+
+    /* Mobile sidebar toggle */
     .mobile-menu-toggle {
         display: flex;
     }
@@ -1077,22 +1090,48 @@ html {
         display: flex;
     }
 
-    .sidebar {
+    /* Sidebar - SOLID opaque background, no blur inheritance */
+    .sidebar,
+    .sidebar.glass-panel {
         position: fixed;
         top: 0;
         left: 0;
-        height: 100%;
+        height: 100vh;
         height: 100dvh;
         width: 280px;
         max-width: 85vw;
         z-index: 1000;
         transform: translateX(-100%);
-        background: rgba(15, 23, 42, 0.98);
-        backdrop-filter: blur(20px);
+        background: #0F172A;
+        background: linear-gradient(180deg, #0F172A 0%, #020617 100%);
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5);
+        border-right: 1px solid rgba(129, 140, 248, 0.2);
+        overflow-y: auto;
+        overflow-x: hidden;
+        filter: none;
+        -webkit-filter: none;
     }
 
     .sidebar.mobile-open {
         transform: translateX(0);
+    }
+
+    /* Ensure sidebar children are sharp - no inherited blur */
+    .sidebar * {
+        filter: none !important;
+        -webkit-filter: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* Re-apply text gradient that was cleared by universal selector */
+    .sidebar .logo-text h1 {
+        background: linear-gradient(to right, #fff, var(--secondary-light));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
 
     .content-area {
@@ -1258,7 +1297,7 @@ html {
         justify-content: center;
     }
 
-    /* Responsive Table */
+    /* Responsive Table - card layout */
     .glass-table {
         min-width: 0;
         border: none;
@@ -1445,7 +1484,8 @@ html {
         font-size: 1rem;
     }
 
-    .sidebar {
+    .sidebar,
+    .sidebar.glass-panel {
         width: 260px;
     }
 
