@@ -34,24 +34,26 @@ app.get('/login', (req, res) => {
     res.sendFile(path.join(__dirname, 'login.html'));
 });
 
-// API Route for registration
+// Update this route in your server.js
 app.post('/api/register', (req, res) => {
-    const { username, password } = req.body;
+    // These keys now match the 'data' object in your login.html
+    const { name, email, officer_id, password } = req.body;
 
-    if (!username || !password) {
-        return res.status(400).send('Username and password are required');
+    if (!name || !email || !password) {
+        return res.status(400).json({ error: 'Name, email, and password are required' });
     }
 
     bcrypt.hash(password, 10, (err, hash) => {
-        if (err) return res.status(500).send('Error hashing password');
+        if (err) return res.status(500).json({ error: 'Error hashing password' });
 
-        const sql = "INSERT INTO users (username, password) VALUES (?, ?)";
-        db.query(sql, [username, hash], (err, result) => {
+        // Ensure your database table 'users' has columns matching these fields
+        const sql = "INSERT INTO users (name, email, officer_id, password) VALUES (?, ?, ?, ?)";
+        db.query(sql, [name, email, officer_id, hash], (err, result) => {
             if (err) {
                 console.error(err);
-                return res.status(500).send('Database error');
+                return res.status(500).json({ error: 'Database error' });
             }
-            res.status(200).send('User registered successfully');
+            res.status(200).json({ message: 'User registered successfully!' });
         });
     });
 });
