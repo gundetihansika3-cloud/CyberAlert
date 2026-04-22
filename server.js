@@ -5,8 +5,11 @@ const bcrypt = require('bcryptjs');
 const path = require('path');
 const cors = require('cors');
 
-const app = express(); // <--- YOU MUST INITIALIZE APP FIRST!
-app.use(express.json()); // Allows your server to parse incoming JSON data
+const app = express();
+
+// Middleware to parse JSON and enable CORS
+app.use(express.json());
+app.use(cors());
 
 // Database connection
 const db = mysql.createConnection({
@@ -18,17 +21,44 @@ const db = mysql.createConnection({
     ssl: { minVersion: 'TLSv1.2', rejectUnauthorized: true }
 });
 
-// Add this line to serve static files from your project root
-app.use(express.static(__dirname)); 
+// Serve static files (CSS, JS, etc.)
+app.use(express.static(__dirname));
 
-// Now your existing routes will work
+// Route for the homepage
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
-// Change this section in your server.js
-const PORT = process.env.PORT || 8080; 
 
-// IMPORTANT: Bind to 0.0.0.0, not localhost
+// Route for login page
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'login.html'));
+});
+
+// API Route for registration
+app.post('/api/register', (req, res) => {
+    const { username, password } = req.body;
+
+    if (!username || !password) {
+        return res.status(400).send('Username and password are required');
+    }
+
+    bcrypt.hash(password, 10, (err, hash) => {
+        if (err) return res.status(500).send('Error hashing password');
+
+        const sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+        db.query(sql, [username, hash], (err, result) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send('Database error');
+            }
+            res.status(200).send('User registered successfully');
+        });
+    });
+});
+
+// Port configuration
+const PORT = process.env.PORT || 8080;
+
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on port ${PORT}`);
 });
